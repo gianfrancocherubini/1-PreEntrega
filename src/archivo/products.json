@@ -1,0 +1,142 @@
+[
+    {
+        "id": 1,
+        "title": "Zapatilla 1",
+        "description": "Zapatilla deportiva 1",
+        "price": 76000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwabce4d6b/products/NI_DD1096-003/NI_DD1096-003-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw8735de7e/products/NI_DD1096-003/NI_DD1096-003-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwc167eccd/products/NI_DD1096-003/NI_DD1096-003-3.JPG"
+                    ],
+        "code": "AA12344",
+        "stock": 780,
+        "status": true,
+        "category":"zapatillas"
+    },
+    {
+        "id": 2,
+        "title": "Zapatilla 2",
+        "description": "Zapatilla deportiva 2",
+        "price": 21000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwa79a750b/products/NI_DD9293-001/NI_DD9293-001-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwb2ac5fa7/products/NI_DD9293-001/NI_DD9293-001-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw66eedd4d/products/NI_DD9293-001/NI_DD9293-001-3.JPG"
+                    ],
+        "code": "AA12345",
+        "stock": 70,
+        "status":true,
+        "category":"zapatillas"
+    },
+    {
+        "id": 3,
+        "title": "Zapatilla 3",
+        "description": "Zapatilla deportiva 3",
+        "price": 5400,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw2a22ff7a/products/AD_GW4140/AD_GW4140-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw3fa9499e/products/AD_GW4140/AD_GW4140-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwc40b9067/products/AD_GW4140/AD_GW4140-3.JPG"
+                    ],
+        "code": "AA12346",
+        "stock": 30,
+        "status":true,
+        "category":"zapatillas"
+    },
+    {
+        "id": 4,
+        "title": "Zapatilla 4",
+        "description": "Zapatilla deportiva 4",
+        "price": 73000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwf2a8af9d/products/AD_FX3633/AD_FX3633-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw727e5d94/products/AD_FX3633/AD_FX3633-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwfa5774cc/products/AD_FX3633/AD_FX3633-3.JPG"
+                    ],
+        "code": "AA12347",
+        "stock": 650,
+        "status":true,
+        "category":"zapatillas"
+    },
+    {
+        "id": 5,
+        "title": "Zapatilla 5",
+        "description": "Zapatilla deportiva 5",
+        "price": 76000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw27221429/products/ADHP2416/ADHP2416-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwa3f88b1e/products/ADHP2416/ADHP2416-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw022c9224/products/ADHP2416/ADHP2416-3.JPG"
+                    ],
+        "code": "AA12348",
+        "stock": 760,
+        "status":true,
+        "category":"zapatillas"
+    },
+    {
+        "id": 6,
+        "title": "Botin 1",
+        "description": "Botin deportivo 1",
+        "price": 6000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwbc2bd24f/products/PU_104656-01/PU_104656-01-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwb646dfed/products/PU_104656-01/PU_104656-01-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw8232c798/products/PU_104656-01/PU_104656-01-3.JPG"
+                    ],
+        "code": "AA12349",
+        "stock": 320,
+        "status":true,
+        "category":"botines"
+    },
+    {
+        "id": 7,
+        "title": "Botin 2",
+        "description": "Botin deportivo 2",
+        "price": 54000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw5daacfe7/products/PU_106449-01/PU_106449-01-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw98c0f496/products/PU_106449-01/PU_106449-01-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwd629586b/products/PU_106449-01/PU_106449-01-3.JPG"
+                    ],
+        "code": "AA12340",
+        "stock": 540,
+        "status":true,
+        "category":"botines"
+    },
+    {
+        "id": 8,
+        "title": "Botin 3",
+        "description": "Botin deportivo 3",
+        "price": 2000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwfbdb9df3/products/NIDJ5635-605/NIDJ5635-605-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw3e1d480c/products/NIDJ5635-605/NIDJ5635-605-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwbb43bc9b/products/NIDJ5635-605/NIDJ5635-605-3.JPG"
+                    ],
+        "code": "AA12341",
+        "stock": 40,
+        "status":true,
+        "category":"botines"
+    },
+    {
+        "id": 9,
+        "title": "Botin 4",
+        "description": "Botin deportivo 4",
+        "price": 22000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw30afb365/products/ADGW4638/ADGW4638-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw16241dda/products/ADGW4638/ADGW4638-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwa11b71f1/products/ADGW4638/ADGW4638-3.JPG"
+                    ],
+        "code": "AA12342",
+        "stock": 510,
+        "status":true,
+        "category":"botines"
+    },
+    {
+        "id": 10,
+        "title": "Botin 5",
+        "description": "Botin deportivo 5",
+        "price": 3000,
+        "thumbnail": [  "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dweab19181/products/NIDA1191-705/NIDA1191-705-1.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw0a598566/products/NIDA1191-705/NIDA1191-705-2.JPG",
+                        "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw0153fb48/products/NIDA1191-705/NIDA1191-705-3.JPG"
+                    ],
+        "code": "AA12343",
+        "stock": 5,
+        "status":true,
+        "category":"botines"
+    }
+  ]
