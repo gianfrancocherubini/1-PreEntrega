@@ -52,3 +52,79 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Error al crear el carrito' });
     }
 });
+
+router.get('/:cid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+
+        if (isNaN(cartId)) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El ID del carrito debe ser un número' });
+            return;
+        }
+
+        const carts = await getCart();
+        const cart = carts.find(cart => cart.id === Number(cartId));
+
+        if (cart) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(cart.products);
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).json({ error: 'Carrito no encontrado' });
+        }
+    } catch (error) {
+        console.error("Error al obtener productos del carrito: ", error);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(500).json({ error: 'Error al obtener productos del carrito' });
+    }
+});
+
+router.post('/:cid/product/:pid', async (req, res) => {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        const quantity = 1; 
+
+        if (isNaN(cartId) || isNaN(productId)) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'Los IDs del carrito y del producto deben ser números' });
+            return;
+        }
+
+        const carts = await getCart();
+        const cart = carts.find(cart => cart.id === Number(cartId));
+
+        if (!cart) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).json({ error: 'Carrito no encontrado' });
+            return;
+        }
+
+        const products = await getProducts();
+        const product = products.find(product => product.id === Number(productId));
+
+        if (!product) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
+
+        const existingProductInCart = cart.products.find(item => item.product.id === Number(productId));
+        if (existingProductInCart) {
+            existingProductInCart.quantity += quantity;
+        } else {
+            cart.products.push({ product, quantity });
+        }
+
+        await saveCart(carts);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(201).json(cart);
+    } catch (error) {
+        console.error("Error al agregar un producto al carrito: ", error);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(500).json({ error: 'Error al agregar un producto al carrito' });
+    }
+});
+
+module.exports = router;
