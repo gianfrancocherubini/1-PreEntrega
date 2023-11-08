@@ -2,7 +2,7 @@ const {Router}=require('express')
 const path = require('path');
 const fs = require('fs');
 
-let ruta = path.join(__dirname, 'archivo', 'products.json');
+let ruta = path.join(__dirname, '..', 'archivo', 'products.json');
 
 async function getProducts() {
     if (fs.existsSync(ruta)) {
@@ -23,6 +23,7 @@ async function getProductById(id) {
             return product;
         } else {
             console.log("Producto no encontrado");
+            return
         }
     } catch (error) {
         console.error("Error al obtener productos:", error);
