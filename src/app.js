@@ -109,6 +109,12 @@ app.post('/api/products', async (req, res) => {
             return;
         }
 
+        if (typeof status !== 'boolean') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo status debe ser un valor booleano' });
+            return;
+        }
+
         if (!Array.isArray(thumbnails) || !thumbnails.every(url => typeof url === 'string')) {
             res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'El campo thumbnails debe ser un array de cadenas de texto que contienen las rutas de las imágenes' });
@@ -155,13 +161,13 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
-app.put('/api/products/:id', async (req, res) => {
+app.put('/api/products/:pid', async (req, res) => {
     try {
-        const productId = req.params.id;
+        const productId = req.params.pid;
         const {
             title,
             description,
-            price,
+            price, 
             thumbnails,
             code,
             stock,
@@ -184,6 +190,67 @@ app.put('/api/products/:id', async (req, res) => {
             return;
         }
 
+        let propiedadesPermitidas=["title","description","price","thumbnails","code","stock","status","category"];
+        let propiedadesQueLlegan=Object.keys(req.body);
+        let valido=propiedadesQueLlegan.every(propiedad=>propiedadesPermitidas.includes(propiedad))
+        if(!valido){
+            res.setHeader('Content-Type', 'application/json')
+            return res.status(400).json({error:`No se aceptan algunas propiedades`, propiedadesPermitidas })
+
+        }
+
+        // Validación de campos
+        if (title && typeof title !== 'string') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo title debe ser una cadena de texto' });
+            return;
+        }
+
+        if (description && typeof description !== 'string') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo description debe ser una cadena de texto' });
+            return;
+        }
+
+        if (code && typeof code !== 'string') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo code debe ser una cadena de texto' });
+            return;
+        }
+
+        if (category && typeof category !== 'string') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo category debe ser una cadena de texto' });
+            return;
+        }
+
+        if (price && typeof price !== 'number') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo price debe ser un número' });
+            return;
+        }
+
+        if (stock && typeof stock !== 'number') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo stock debe ser un número' });
+            return;
+        }
+
+        if (status && typeof status !== 'boolean') {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El campo stock debe ser un valor booleano' });
+            return;
+        }
+
+        if (thumbnails) {
+            if (!Array.isArray(thumbnails) || !thumbnails.every(url => typeof url === 'string')) {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(400).json({ error: 'El campo thumbnails debe ser un array de cadenas de texto que contienen las rutas de las imágenes' });
+                return;
+            }
+        }
+
+        // Actualización de campos
         if (title) {
             productos[productIndex].title = title;
         }
@@ -224,6 +291,38 @@ app.put('/api/products/:id', async (req, res) => {
         console.error("Error al actualizar el producto: ", error);
         res.setHeader('Content-Type', 'application/json');
         res.status(500).json({ error: 'Error al actualizar el producto' });
+    }
+});
+
+app.delete('/api/products/:pid', async (req, res) => {
+    try {
+        const productId = req.params.pid;
+
+        if (isNaN(productId)) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El ID de producto no es un número válido' });
+            return;
+        }
+
+        const productos = await getProducts();
+        const productIndex = productos.findIndex(product => product.id === parseInt(productId, 10));
+
+        if (productIndex === -1) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
+
+        productos.splice(productIndex, 1);
+
+        await fs.promises.writeFile(ruta, JSON.stringify(productos, null, 2));
+        console.log("Producto eliminado correctamente.");
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({ message: 'Producto eliminado correctamente' });
+    } catch (error) {
+        console.error("Error al eliminar el producto: ", error);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(500).json({ error: 'Error al eliminar el producto' });
     }
 });
 
