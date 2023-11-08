@@ -25,7 +25,7 @@ async function saveProducts(products) {
 async function getProductById(id) {
     try {
         let productos = await getProducts();
-        let product = productos.find(product => product.id === Number(id)); 
+        let product = productos.find(product => product.id === Number(id));
 
         if (product) {
             console.log("El producto encontrado es:", product);
@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.setHeader('Content-Type', 'text/plain'); 
+    res.setHeader('Content-Type', 'text/plain');
     res.status(200).send('OK');
 });
 
@@ -58,11 +58,11 @@ app.get('/api/products', async (req, res) => {
             let limitedProducts = products.slice(0, parseInt(limit, 10));
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ Products: limitedProducts });
-            console.log(limitedProducts)
+            console.log(limitedProducts);
         } else {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ products });
-            console.log(products)
+            console.log(products);
         }
     } catch (error) {
         console.error(error);
@@ -79,7 +79,7 @@ app.get('/api/products/:pid', async (req, res) => {
             return;
         }
         let product = await getProductById(productId);
-  
+
         if (product) {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ product });
@@ -92,13 +92,68 @@ app.get('/api/products/:pid', async (req, res) => {
     }
 });
 
-app.post('./api/products'), async (req, res)=> {
+app.post('/api/products', async (req, res) => {
     try {
-        let {title, description, code, price, status, stock, thumbnails} = req.body
+        const { title, description, price, thumbnails, code, stock, status, category } = req.body;
 
+        if (!title || !description || !price || !thumbnails || !code || !stock || !status || !category) {
+            res.status(400).json({ error: 'Todos los campos son obligatorios' });
+            return;
+        }
+
+        if (typeof title !== 'string' || typeof description !== 'string' || typeof code !== 'string' || typeof category !== 'string') {
+            res.status(400).json({ error: 'Los campos title, description, code y category deben ser cadenas de texto' });
+            return;
+        }
+
+        if (typeof price !== 'number' || typeof stock !== 'number') {
+            res.status(400).json({ error: 'Los campos price y stock deben ser números' });
+            return;
+        }
+
+        if (!Array.isArray(thumbnails) || !thumbnails.every(url => typeof url === 'string')) {
+            res.status(400).json({ error: 'El campo thumbnails debe ser un array de cadenas de texto que contienen las rutas de las imágenes' });
+            return;
+        }
+
+        let productos = await getProducts();
+
+        let productWithSameCode = productos.find(product => product.code === code);
+
+        if (productWithSameCode) {
+            res.status(400).json({ error: 'El producto ya está ingresado' });
+            return;
+        }
+
+        let id = 1;
+        if (productos.length > 0) {
+            id = productos[productos.length - 1].id + 1;
+        }
+
+        let newProduct = {
+            id,
+            title,
+            description,
+            code,
+            price,
+            status,
+            stock,
+            category,
+            thumbnails
+        };
+
+        productos.push(newProduct);
+
+        await fs.promises.writeFile(ruta, JSON.stringify(productos, null, 2));
+        console.log("Producto agregado correctamente.");
+
+        res.setHeader('Content-Type', 'application/json');
+        res.status(201).json(newProduct);
+    } catch (error) {
+        console.error("Error al agregar el producto: ", error);
+        res.status(500).json({ error: 'Error al agregar el producto' });
     }
-}
-
+});
 
 const server = app.listen(PORT, () => {
     console.log(`Server escuchando en puerto ${PORT}`);
