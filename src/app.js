@@ -13,15 +13,6 @@ async function getProducts() {
     }
 }
 
-async function saveProducts(products) {
-    try {
-        await fs.promises.writeFile(ruta, JSON.stringify(products, null, 5));
-        console.log('Productos guardados con éxito en', ruta);
-    } catch (error) {
-        console.error('Error al guardar los productos:', error);
-    }
-}
-
 async function getProductById(id) {
     try {
         let productos = await getProducts();
@@ -66,7 +57,8 @@ app.get('/api/products', async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: 'Error al obtener productos' });
+        res.setHeader('Content-Type', 'application/json');
+        res.status(500).json({ error: 'Error al obtener productos' });
     }
 });
 
@@ -75,6 +67,7 @@ app.get('/api/products/:pid', async (req, res) => {
         let productId = req.params.pid;
 
         if (isNaN(productId)) {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'El ID de producto no es un número válido' });
             return;
         }
@@ -84,10 +77,12 @@ app.get('/api/products/:pid', async (req, res) => {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({ product });
         } else {
+            res.setHeader('Content-Type', 'application/json');
             res.status(404).json({ error: 'Producto no encontrado' });
         }
     } catch (error) {
         console.error(error);
+        res.setHeader('Content-Type', 'application/json');
         res.status(500).json({ error: 'Error al obtener el producto' });
     }
 });
@@ -97,21 +92,25 @@ app.post('/api/products', async (req, res) => {
         const { title, description, price, thumbnails, code, stock, status, category } = req.body;
 
         if (!title || !description || !price || !thumbnails || !code || !stock || !status || !category) {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'Todos los campos son obligatorios' });
             return;
         }
 
         if (typeof title !== 'string' || typeof description !== 'string' || typeof code !== 'string' || typeof category !== 'string') {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'Los campos title, description, code y category deben ser cadenas de texto' });
             return;
         }
 
         if (typeof price !== 'number' || typeof stock !== 'number') {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'Los campos price y stock deben ser números' });
             return;
         }
 
         if (!Array.isArray(thumbnails) || !thumbnails.every(url => typeof url === 'string')) {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'El campo thumbnails debe ser un array de cadenas de texto que contienen las rutas de las imágenes' });
             return;
         }
@@ -121,6 +120,7 @@ app.post('/api/products', async (req, res) => {
         let productWithSameCode = productos.find(product => product.code === code);
 
         if (productWithSameCode) {
+            res.setHeader('Content-Type', 'application/json');
             res.status(400).json({ error: 'El producto ya está ingresado' });
             return;
         }
@@ -146,14 +146,87 @@ app.post('/api/products', async (req, res) => {
 
         await fs.promises.writeFile(ruta, JSON.stringify(productos, null, 2));
         console.log("Producto agregado correctamente.");
-
         res.setHeader('Content-Type', 'application/json');
         res.status(201).json(newProduct);
     } catch (error) {
         console.error("Error al agregar el producto: ", error);
+        res.setHeader('Content-Type', 'application/json');
         res.status(500).json({ error: 'Error al agregar el producto' });
     }
 });
+
+app.put('/api/products/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const {
+            title,
+            description,
+            price,
+            thumbnails,
+            code,
+            stock,
+            status,
+            category
+        } = req.body;
+
+        if (!productId || isNaN(productId)) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(400).json({ error: 'El ID de producto no es un número válido' });
+            return;
+        }
+
+        const productos = await getProducts();
+        const productIndex = productos.findIndex(product => product.id === parseInt(productId, 10));
+
+        if (productIndex === -1) {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(404).json({ error: 'Producto no encontrado' });
+            return;
+        }
+
+        if (title) {
+            productos[productIndex].title = title;
+        }
+
+        if (description) {
+            productos[productIndex].description = description;
+        }
+
+        if (price) {
+            productos[productIndex].price = price;
+        }
+
+        if (thumbnails) {
+            productos[productIndex].thumbnails = thumbnails;
+        }
+
+        if (code) {
+            productos[productIndex].code = code;
+        }
+
+        if (stock) {
+            productos[productIndex].stock = stock;
+        }
+
+        if (status) {
+            productos[productIndex].status = status;
+        }
+
+        if (category) {
+            productos[productIndex].category = category;
+        }
+
+        await fs.promises.writeFile(ruta, JSON.stringify(productos, null, 2));
+        console.log("Producto actualizado correctamente.");
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json({ product: productos[productIndex] });
+    } catch (error) {
+        console.error("Error al actualizar el producto: ", error);
+        res.setHeader('Content-Type', 'application/json');
+        res.status(500).json({ error: 'Error al actualizar el producto' });
+    }
+});
+
 
 const server = app.listen(PORT, () => {
     console.log(`Server escuchando en puerto ${PORT}`);
