@@ -1,20 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Zapatilla 1",
-    "description": "Zapatilla deportiva 1",
-    "price": 99.99,
-    "thumbnails": [
-      "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw30afb365/products/ADGW4638/ADGW4638-1.JPG",
-      "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dw16241dda/products/ADGW4638/ADGW4638-2.JPG",
-      "https://www.stockcenter.com.ar/on/demandware.static/-/Sites-365-dabra-catalog/default/dwa11b71f1/products/ADGW4638/ADGW4638-3.JPG"
-    ],
-    "code": "AA12342",
-    "stock": 10,
-    "status": true,
-    "category": "zapatillas"
-  },
-  {
     "id": 2,
     "title": "Zapatilla 2",
     "description": "Zapatilla deportiva 2",
