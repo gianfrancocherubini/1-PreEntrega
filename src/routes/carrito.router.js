@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const path = require('path');
 const fs = require('fs');
+const { getProducts } = require('./products.router');
+
 
 const ruta = path.join(__dirname, '..', 'archivo', 'carrito.json');
 
@@ -12,6 +14,8 @@ async function getCart() {
         return [];
     }
 }
+
+
 
 async function saveCart(cart) {
     await fs.promises.writeFile(ruta, JSON.stringify(cart, null, 2));
